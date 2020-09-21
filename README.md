@@ -4,10 +4,10 @@ Estructuras de Datos
 Práctica 1: Listas
 ------------------
 
-### Fecha de entrega: martes 11 de febrero, 2020
+### Fecha de entrega: martes 6 de octubre, 2020
 
 Deben implementar los métodos faltantes de la clase
-[`Lista`](https://aztlan.fciencias.unam.mx/gitlab/2020-2-edd/practica1/blob/master/src/main/java/mx/unam/ciencias/edd/Lista.java).
+[`Lista`](https://aztlan.fciencias.unam.mx/gitlab/2021-1-edd/practica1/blob/master/src/main/java/mx/unam/ciencias/edd/Lista.java).
 
 Una vez que hayan terminado su clase, debe compilar al hacer:
 
@@ -22,7 +22,7 @@ $ mvn test
 ```
 
 Por último, debe ejecutar correctamente el programa escrito en la clase
-[`Practica1`](https://aztlan.fciencias.unam.mx/gitlab/2020-2-edd/practica1/blob/master/src/main/java/mx/unam/ciencias/edd/Practica1.java)
+[`Practica1`](https://aztlan.fciencias.unam.mx/gitlab/2021-1-edd/practica1/blob/master/src/main/java/mx/unam/ciencias/edd/Practica1.java)
 al ejecutar:
 
 ```
@@ -39,14 +39,14 @@ ninguna manera ninguno de los otros archivos de la práctica*.
 Pueden clonar la práctica con el siguiente comando:
 
 ```
-$ git clone https://aztlan.fciencias.unam.mx/gitlab/2020-2-edd/practica1.git
+$ git clone https://aztlan.fciencias.unam.mx/gitlab/2021-1-edd/practica1.git
 ```
 
 ### Documentación
 
 La documentación generada por JavaDoc la pueden consultar aquí:
 
-[Documentación generada por JavaDoc para la práctica 1](https://aztlan.fciencias.unam.mx/~canek/2020-2-edd/practica1/apidocs/index.html)
+[Documentación generada por JavaDoc para la práctica 1](https://aztlan.fciencias.unam.mx/~canek/2021-1-edd/practica1/apidocs/index.html)
 
 ### Capítulos del libro
 
