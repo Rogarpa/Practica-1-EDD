@@ -334,6 +334,13 @@ public class TestLista {
         Assert.assertTrue(lista.get(0).equals(2));
         Assert.assertTrue(lista.get(1).equals(1));
         Assert.assertTrue(lista.get(2).equals(3));
+        lista.limpia();
+        lista.agregaFinal(1);
+        lista.agregaFinal(2);
+        lista.agregaFinal(3);
+        lista.elimina(2);
+        Assert.assertTrue(lista.get(0).equals(1));
+        Assert.assertTrue(lista.get(1).equals(3));
     }
 
     /**
