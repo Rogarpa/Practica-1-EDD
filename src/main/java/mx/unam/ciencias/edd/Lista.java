@@ -27,7 +27,7 @@ public class Lista<T> implements Coleccion<T> {
 
         /* Construye un nodo con un elemento. */
         public Nodo(T elemento) {
-            // Aquí va su código.
+            this.elemento = elemento;
         }
     }
 
@@ -117,8 +117,23 @@ public class Lista<T> implements Coleccion<T> {
      *         <code>null</code>.
      */
     @Override public void agrega(T elemento) {
-        // Aquí va su código.
-    }
+        if(elemento == null) throw new IllegalArgumentException("null agregado");
+        
+        Nodo n = new Nodo(elemento);        
+        longitud++;
+        
+        if (rabo == null) {
+            cabeza = rabo = n;
+            return;
+        }
+        
+        else{
+            rabo.siguiente = n;
+            n.anterior = rabo;
+            rabo = n;
+        }
+
+    } 
 
     /**
      * Agrega un elemento al final de la lista. Si la lista no tiene elementos,
@@ -128,7 +143,7 @@ public class Lista<T> implements Coleccion<T> {
      *         <code>null</code>.
      */
     public void agregaFinal(T elemento) {
-        // Aquí va su código.
+        agrega(elemento);
     }
 
     /**
@@ -139,7 +154,20 @@ public class Lista<T> implements Coleccion<T> {
      *         <code>null</code>.
      */
     public void agregaInicio(T elemento) {
-        // Aquí va su código.
+        if(elemento == null) throw new IllegalArgumentException("null agregadodo inicio");
+
+        Nodo n = new Nodo(elemento);
+        longitud++;
+        
+        if(rabo  == null){ 
+            cabeza = rabo = n;
+            return;
+        }
+        else{
+            cabeza.anterior = n;
+            n.siguiente = cabeza;
+            cabeza = n;
+        } 
     }
 
     /**
@@ -158,7 +186,30 @@ public class Lista<T> implements Coleccion<T> {
      *         <code>null</code>.
      */
     public void inserta(int i, T elemento) {
-        // Aquí va su código.
+        if(elemento == null) throw new IllegalArgumentException("null insertado");
+
+         Nodo n = new Nodo(elemento);
+        
+        if(i <= 0) {
+            agregaInicio(elemento);
+            return;
+        }
+        if(i >= longitud){
+             agregaFinal(elemento);
+             return;
+        }
+
+        Nodo it = cabeza;
+
+        for(int j = 0; j != i-1; j++)
+            it = it.siguiente;
+        }
+
+        n. siguiente = it.siguiente;
+        n.anterior = it;
+
+        it.siguiente.anterior = n;
+        it.siguiente = n;
     }
 
     /**
