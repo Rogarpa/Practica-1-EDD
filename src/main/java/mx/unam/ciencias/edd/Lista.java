@@ -200,14 +200,11 @@ public class Lista<T> implements Coleccion<T> {
         }
 
         Nodo it = cabeza;
-
         for(int j = 0; j != i-1; j++)
             it = it.siguiente;
         }
-
         n. siguiente = it.siguiente;
         n.anterior = it;
-
         it.siguiente.anterior = n;
         it.siguiente = n;
     }
@@ -218,17 +215,65 @@ public class Lista<T> implements Coleccion<T> {
      * @param elemento el elemento a eliminar.
      */
     @Override public void elimina(T elemento) {
-        // Aquí va su código.
+        if(elementon == null) return;
+
+        Node buscado = buscaNodo(elemento);
+        if(buscado != null) eiminar(buscado);
     }
 
+
+    private Nodo buscaNodo(T elemento){
+        //quitar
+         if(elemento == null) throw new IllegalArgumentException("buscas nulo");
+
+        Nodo encontrado = null;
+
+        while(encontrado != null){
+            if(encontrado.elemento.equals(elemento)) break;
+            encontrado = encontrado.siguiente;
+        }
+        
+        return encontrado;
+    }
+
+    private void eliminaNodo(Nodo n){
+        //quitar
+        if(nodoaeliminar == null) throw new IllegalArgumentException("eliminas nodo null");
+        
+        if(cabeza == rabo){ 
+            cabeza = rabo = null;
+            return;
+        }
+
+        if(nodoaeliminar ==  cabeza){
+            cabeza.siguiente.anterior = null;
+            cabeza = nodoaeliminar;
+            return;
+        }
+
+        if(nodoaeliminar == rabo){
+            rabo.anterior.siguiente = null;
+            rabo = nodoaeliminar;
+            return;
+        }
+
+        nodoaeliminar.anterior.siguiente = nodoaeliminar.siguiente;
+        nodoaeliminar.siguiente.anterior = nodoaeliminar.anterior;
+
+    }
+    
     /**
      * Elimina el primer elemento de la lista y lo regresa.
      * @return el primer elemento de la lista antes de eliminarlo.
      * @throws NoSuchElementException si la lista es vacía.
      */
     public T eliminaPrimero() {
-        // Aquí va su código.
+        if(rabo == null) throw new NoSuchElementException("eliminasPrimero en lista vacía");
+         T primero = cabeza.elemento;
+        eliminaNodo(cabeza);
+        return primero;
     }
+
 
     /**
      * Elimina el último elemento de la lista y lo regresa.
@@ -236,7 +281,10 @@ public class Lista<T> implements Coleccion<T> {
      * @throws NoSuchElementException si la lista es vacía.
      */
     public T eliminaUltimo() {
-        // Aquí va su código.
+        if(rabo == null) throw new NoSuchElementException("eliminasUltimo en lista vacía");
+        T ultimo = rabo.elemento;
+        eliminaNodo(rabo);
+        return ultimo;
     }
 
     /**
