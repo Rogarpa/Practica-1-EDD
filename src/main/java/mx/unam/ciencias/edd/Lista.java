@@ -87,16 +87,17 @@ public class Lista<T> implements Coleccion<T> {
      * @return la longitud de la lista, el número de elementos que contiene.
      */
     public int getLongitud() {
-        // Aquí va su código.
+        return getElementos();
     }
 
     /**
+     * 
      * Regresa el número elementos en la lista. El método es idéntico a {@link
      * #getLongitud}.
      * @return el número elementos en la lista.
      */
     @Override public int getElementos() {
-        // Aquí va su código.
+        return longitud;
     }
 
     /**
@@ -105,7 +106,7 @@ public class Lista<T> implements Coleccion<T> {
      *         otro caso.
      */
     @Override public boolean esVacia() {
-        // Aquí va su código.
+        return rabo == null;
     }
 
     /**
@@ -189,24 +190,36 @@ public class Lista<T> implements Coleccion<T> {
         if(elemento == null) throw new IllegalArgumentException("null insertado");
 
          Nodo n = new Nodo(elemento);
-        
-        if(i <= 0) {
+        longitud++;
+
+        if(i < 1) {
             agregaInicio(elemento);
             return;
         }
-        if(i >= longitud){
+        if(i > longitud -1){
              agregaFinal(elemento);
              return;
         }
 
+        Nodo  prenodo = iesimoNodo(i-1);
+
+        n. siguiente = prenodo.siguiente;
+        n.anterior = prenodo;
+        prenodo.siguiente.anterior = n;
+        prenodo.siguiente = n;
+    }
+
+    private Nodo iesimoNodo(int i){
+        //quitar
+        if(i < 1) return cabeza;
+        if(i > longitud -2) return rabo;
+        
         Nodo it = cabeza;
-        for(int j = 0; j != i-1; j++)
+        for(;i > 0; i--){
             it = it.siguiente;
         }
-        n. siguiente = it.siguiente;
-        n.anterior = it;
-        it.siguiente.anterior = n;
-        it.siguiente = n;
+        return it;
+
     }
 
     /**
@@ -218,7 +231,10 @@ public class Lista<T> implements Coleccion<T> {
         if(elementon == null) return;
 
         Node buscado = buscaNodo(elemento);
-        if(buscado != null) eiminar(buscado);
+        if(buscado != null){
+             eiminar(buscado);
+             longitud--;
+        }
     }
 
 
@@ -294,7 +310,7 @@ public class Lista<T> implements Coleccion<T> {
      *         <code>false</code> en otro caso.
      */
     @Override public boolean contiene(T elemento) {
-        // Aquí va su código.
+        return buscaNodo(elemento) != null;
     }
 
     /**
@@ -302,7 +318,13 @@ public class Lista<T> implements Coleccion<T> {
      * @return una nueva lista que es la reversa la que manda llamar el método.
      */
     public Lista<T> reversa() {
-        // Aquí va su código.
+        Lista<T> reversa = new Lista<T>();
+        Nodo it = rabo;
+        while(it != null){
+            copia.agrega(it.elemento);
+            it = it.anterior;
+        }
+        return copia;
     }
 
     /**
@@ -311,14 +333,21 @@ public class Lista<T> implements Coleccion<T> {
      * @return una copiad de la lista.
      */
     public Lista<T> copia() {
-        // Aquí va su código.
+        Lista<T> copia = new Lista<T>();
+        Nodo it = cabeza;
+        while(it != null){
+            copia.agrega(it.elemento);
+            it = it.siguiente;
+        }
+        return copia;
     }
 
     /**
      * Limpia la lista de elementos, dejándola vacía.
      */
     @Override public void limpia() {
-        // Aquí va su código.
+        cabeza = rabo = null;
+        longitud = 0;
     }
 
     /**
@@ -327,7 +356,9 @@ public class Lista<T> implements Coleccion<T> {
      * @throws NoSuchElementException si la lista es vacía.
      */
     public T getPrimero() {
-        // Aquí va su código.
+        if(rabo == null) throw new NoSuchElementException("get primero de lista vacía");
+
+        return cabeza.elemento;
     }
 
     /**
@@ -336,7 +367,9 @@ public class Lista<T> implements Coleccion<T> {
      * @throws NoSuchElementException si la lista es vacía.
      */
     public T getUltimo() {
-        // Aquí va su código.
+        if(rabo == null) throw new NoSuchElementException("get primero de lista vacía");
+ 
+        return rabo.elemento;
     }
 
     /**
@@ -347,7 +380,9 @@ public class Lista<T> implements Coleccion<T> {
      *         igual que el número de elementos en la lista.
      */
     public T get(int i) {
-        // Aquí va su código.
+        if(i<0 || i>=longitud) return ExcepcionIndiceInvalido("get de índice inválido");
+
+        return iesimoNodo(i).elemento;
     }
 
     /**
@@ -357,7 +392,15 @@ public class Lista<T> implements Coleccion<T> {
      *         no está contenido en la lista.
      */
     public int indiceDe(T elemento) {
-        // Aquí va su código.
+        \quitar el que sea iterativa y ponerla con una resta.
+        
+        Nodo it = cabeza;
+        int i = 0;
+        while(it != null){
+            if(it.elemento.equals(elemento)) return i;
+            it = it.siguiente;
+            i++;
+        }
     }
 
     /**
@@ -365,7 +408,18 @@ public class Lista<T> implements Coleccion<T> {
      * @return una representación en cadena de la lista.
      */
     @Override public String toString() {
-        // Aquí va su código.
+        if(rabo == null) return "[]";
+
+        String toString = "[" + cabeza.toString();
+
+        Nodo it = cabeza.siguiente;
+
+        while(it != null){
+            toString += ", " + it
+            it = it.siguiente;
+        }
+
+        return toString + "]";
     }
 
     /**
@@ -378,7 +432,19 @@ public class Lista<T> implements Coleccion<T> {
         if (objeto == null || getClass() != objeto.getClass())
             return false;
         @SuppressWarnings("unchecked") Lista<T> lista = (Lista<T>)objeto;
-        // Aquí va su código.
+        if(objeto.getElementos() != this.longitud) return false;
+         
+        Nodo t = cabeza;
+        Nodo o = objeto.cabeza;
+
+
+        while (t != null && o != null ){
+            if(! t.elemento.equals(o)) return false;
+            t = t.siguiente;
+            o = o.siguiente;
+        }
+  
+        return t == o;
     }
 
     /**
