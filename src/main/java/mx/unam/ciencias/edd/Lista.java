@@ -54,8 +54,8 @@ public class Lista<T> implements Coleccion<T> {
             if(siguiente == null) throw new NoSuchElementException();
 
             anterior = siguiente;
-            siguiente = anterior.siguiente 
-            else return anterior;
+            siguiente = anterior.siguiente;
+            return anterior.elemento;
         }
 
         /* Nos dice si hay un elemento anterior. */
@@ -68,8 +68,8 @@ public class Lista<T> implements Coleccion<T> {
             if(anterior == null) throw new NoSuchElementException();
 
             siguiente = anterior;
-            anterior = siguiente.anterior 
-            else return siguiente;
+            anterior = siguiente.anterior;
+            return siguiente.elemento;
         }
 
         /* Mueve el iterador al inicio de la lista. */
@@ -239,11 +239,11 @@ public class Lista<T> implements Coleccion<T> {
      * @param elemento el elemento a eliminar.
      */
     @Override public void elimina(T elemento) {
-        if(elementon == null) return;
+        if(elemento == null) return;
 
-        Node buscado = buscaNodo(elemento);
+        Nodo buscado = buscaNodo(elemento);
         if(buscado != null){
-             eiminar(buscado);
+             eliminaNodo(buscado);
              longitud--;
         }
     }
@@ -263,7 +263,7 @@ public class Lista<T> implements Coleccion<T> {
         return encontrado;
     }
 
-    private void eliminaNodo(Nodo n){
+    private void eliminaNodo(Nodo nodoaeliminar){
         //quitar
         if(nodoaeliminar == null) throw new IllegalArgumentException("eliminas nodo null");
         
@@ -332,10 +332,10 @@ public class Lista<T> implements Coleccion<T> {
         Lista<T> reversa = new Lista<T>();
         Nodo it = rabo;
         while(it != null){
-            copia.agrega(it.elemento);
+            reversa.agrega(it.elemento);
             it = it.anterior;
         }
-        return copia;
+        return reversa;
     }
 
     /**
@@ -391,7 +391,7 @@ public class Lista<T> implements Coleccion<T> {
      *         igual que el número de elementos en la lista.
      */
     public T get(int i) {
-        if(i<0 || i>=longitud) return ExcepcionIndiceInvalido("get de índice inválido");
+        if(i<0 || i>=longitud) throw new ExcepcionIndiceInvalido("get de índice inválido");
 
         return iesimoNodo(i).elemento;
     }
@@ -403,7 +403,7 @@ public class Lista<T> implements Coleccion<T> {
      *         no está contenido en la lista.
      */
     public int indiceDe(T elemento) {
-        \quitar el que sea iterativa y ponerla con una resta.
+        //quitar el que sea iterativa y ponerla con una resta.
         
         Nodo it = cabeza;
         int i = 0;
@@ -412,6 +412,7 @@ public class Lista<T> implements Coleccion<T> {
             it = it.siguiente;
             i++;
         }
+        return -1;
     }
 
     /**
@@ -426,7 +427,7 @@ public class Lista<T> implements Coleccion<T> {
         Nodo it = cabeza.siguiente;
 
         while(it != null){
-            toString += ", " + it
+            toString += ", " + it;
             it = it.siguiente;
         }
 
@@ -443,10 +444,10 @@ public class Lista<T> implements Coleccion<T> {
         if (objeto == null || getClass() != objeto.getClass())
             return false;
         @SuppressWarnings("unchecked") Lista<T> lista = (Lista<T>)objeto;
-        if(objeto.getElementos() != this.longitud) return false;
+        if(lista.getElementos() != this.longitud) return false;
          
         Nodo t = cabeza;
-        Nodo o = objeto.cabeza;
+        Nodo o = lista.cabeza;
 
 
         while (t != null && o != null ){
