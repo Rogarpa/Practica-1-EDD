@@ -201,7 +201,6 @@ public class Lista<T> implements Coleccion<T> {
         if(elemento == null) throw new IllegalArgumentException("null insertado");
 
          Nodo n = new Nodo(elemento);
-        longitud++;
 
         if(i < 1) {
             agregaInicio(elemento);
@@ -213,7 +212,8 @@ public class Lista<T> implements Coleccion<T> {
         }
 
         Nodo  prenodo = iesimoNodo(i-1);
-
+        longitud++;
+        
         n. siguiente = prenodo.siguiente;
         n.anterior = prenodo;
         prenodo.siguiente.anterior = n;
@@ -457,7 +457,7 @@ public class Lista<T> implements Coleccion<T> {
 
 
         while (t != null && o != null ){
-            if(! t.elemento.equals(o)) return false;
+            if(! t.elemento.equals(o.elemento)) return false;
             t = t.siguiente;
             o = o.siguiente;
         }
