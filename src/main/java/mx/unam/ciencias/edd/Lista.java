@@ -242,6 +242,7 @@ public class Lista<T> implements Coleccion<T> {
         if(elemento == null) return;
 
         Nodo buscado = buscaNodo(elemento);
+
         if(buscado != null){
              eliminaNodo(buscado);
              longitud--;
@@ -253,7 +254,7 @@ public class Lista<T> implements Coleccion<T> {
         //quitar
          if(elemento == null) throw new IllegalArgumentException("buscas nulo");
 
-        Nodo encontrado = null;
+        Nodo encontrado = cabeza;
 
         while(encontrado != null){
             if(encontrado.elemento.equals(elemento)) break;
@@ -274,13 +275,13 @@ public class Lista<T> implements Coleccion<T> {
 
         if(nodoaeliminar ==  cabeza){
             cabeza.siguiente.anterior = null;
-            cabeza = nodoaeliminar;
+            cabeza = cabeza.siguiente;
             return;
         }
 
         if(nodoaeliminar == rabo){
             rabo.anterior.siguiente = null;
-            rabo = nodoaeliminar;
+            rabo = rabo.anterior;
             return;
         }
 
@@ -296,7 +297,9 @@ public class Lista<T> implements Coleccion<T> {
      */
     public T eliminaPrimero() {
         if(rabo == null) throw new NoSuchElementException("eliminasPrimero en lista vacía");
-         T primero = cabeza.elemento;
+        
+        longitud--;
+        T primero = cabeza.elemento;
         eliminaNodo(cabeza);
         return primero;
     }
@@ -308,7 +311,10 @@ public class Lista<T> implements Coleccion<T> {
      * @throws NoSuchElementException si la lista es vacía.
      */
     public T eliminaUltimo() {
+        //quitar complejidad al elimina
         if(rabo == null) throw new NoSuchElementException("eliminasUltimo en lista vacía");
+
+        longitud--;
         T ultimo = rabo.elemento;
         eliminaNodo(rabo);
         return ultimo;
@@ -422,12 +428,12 @@ public class Lista<T> implements Coleccion<T> {
     @Override public String toString() {
         if(rabo == null) return "[]";
 
-        String toString = "[" + cabeza.toString();
+        String toString = "[" + cabeza.elemento.toString();
 
         Nodo it = cabeza.siguiente;
 
         while(it != null){
-            toString += ", " + it;
+            toString += ", " + it.elemento.toString();
             it = it.siguiente;
         }
 
