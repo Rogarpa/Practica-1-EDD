@@ -221,14 +221,26 @@ public class Lista<T> implements Coleccion<T> {
     }
 
     private Nodo iesimoNodo(int i){
-        //quitar
         if(i < 1) return cabeza;
         if(i > longitud -2) return rabo;
         
-        Nodo it = cabeza;
-        for(;i > 0; i--){
-            it = it.siguiente;
+        
+        
+        Nodo it;
+        if(i > (longitud>>1)){
+            it = rabo;
+            i = longitud-i-1;
+            for(;i > 0; i--){
+                it = it.anterior;
+            }
         }
+        else{
+            it = cabeza;
+            for(;i > 0; i--){
+            it = it.siguiente;
+            }
+        }
+    
         return it;
 
     }
@@ -239,8 +251,6 @@ public class Lista<T> implements Coleccion<T> {
      * @param elemento el elemento a eliminar.
      */
     @Override public void elimina(T elemento) {
-        if(elemento == null) return;
-
         Nodo buscado = buscaNodo(elemento);
 
         if(buscado != null){
@@ -251,8 +261,7 @@ public class Lista<T> implements Coleccion<T> {
 
 
     private Nodo buscaNodo(T elemento){
-        //quitar
-         if(elemento == null) throw new IllegalArgumentException("buscas nulo");
+        if(elemento == null) return null;
 
         Nodo encontrado = cabeza;
 
@@ -265,8 +274,8 @@ public class Lista<T> implements Coleccion<T> {
     }
 
     private void eliminaNodo(Nodo nodoaeliminar){
-        //quitar
-        if(nodoaeliminar == null) throw new IllegalArgumentException("eliminas nodo null");
+        if(nodoaeliminar == null) return;
+        
         
         if(cabeza == rabo){ 
             cabeza = rabo = null;
@@ -311,7 +320,6 @@ public class Lista<T> implements Coleccion<T> {
      * @throws NoSuchElementException si la lista es vacía.
      */
     public T eliminaUltimo() {
-        //quitar complejidad al elimina
         if(rabo == null) throw new NoSuchElementException("eliminasUltimo en lista vacía");
 
         longitud--;
@@ -409,7 +417,6 @@ public class Lista<T> implements Coleccion<T> {
      *         no está contenido en la lista.
      */
     public int indiceDe(T elemento) {
-        //quitar el que sea iterativa y ponerla con una resta.
         
         Nodo it = cabeza;
         int i = 0;
